@@ -1,4 +1,15 @@
-import { Avatar, Flex, Heading, Stack } from "@chakra-ui/react"
+import { ChevronDownIcon } from "@chakra-ui/icons"
+import {
+  Avatar,
+  Button,
+  Flex,
+  Heading,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Stack,
+} from "@chakra-ui/react"
 
 const Header = () => {
   return (
@@ -14,9 +25,17 @@ const Header = () => {
         My Contacts
       </Heading>
 
-      <Stack>
-        <Avatar name="Carlos Jr." />
-      </Stack>
+      <Menu>
+        <MenuButton>
+          <Stack>
+            <Avatar name="Carlos Jr." />
+          </Stack>
+        </MenuButton>
+        <MenuList>
+          <MenuItem>Ver Perfil</MenuItem>
+          <MenuItem>Sair</MenuItem>
+        </MenuList>
+      </Menu>
     </Flex>
   )
 }

@@ -1,10 +1,11 @@
-import { Flex, ListItem, UnorderedList } from "@chakra-ui/react"
+import { AddIcon } from "@chakra-ui/icons"
+import { Button, Flex, ListItem, UnorderedList } from "@chakra-ui/react"
 import CardContact from "./CardContact"
 import HeaderContactList from "./HeaderContactList"
 
 const ContactList = () => {
   return (
-    <Flex flexDir="column" alignItems="center" gap="16px">
+    <Flex flexDir="column" alignItems="center" gap="16px" pos="relative">
       <HeaderContactList />
       <UnorderedList
         display="flex"
@@ -35,6 +36,15 @@ const ContactList = () => {
         <CardContact />
         <CardContact />
       </UnorderedList>
+      <Button
+        pos="absolute"
+        right="16px"
+        bottom="16px"
+        bg="cyan.600"
+        _hover={{ bg: "cyan.700" }}
+      >
+        <AddIcon color="gray.100" />
+      </Button>
     </Flex>
   )
 }
