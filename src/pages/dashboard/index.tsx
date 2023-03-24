@@ -1,11 +1,11 @@
-import { Box } from "@chakra-ui/react"
+import ContactList from "../../components/ContactList"
 import Header from "../../components/Header"
 
 const Dashboard = () => {
   return (
     <>
       <Header />
-      <Box>Hello Dashboard</Box>
+      <ContactList />
     </>
   )
 }
