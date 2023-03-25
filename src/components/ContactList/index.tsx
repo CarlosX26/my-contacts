@@ -1,9 +1,14 @@
 import { AddIcon } from "@chakra-ui/icons"
-import { Button, Flex, ListItem, UnorderedList } from "@chakra-ui/react"
+import { Button, Flex, UnorderedList } from "@chakra-ui/react"
 import CardContact from "./CardContact"
 import HeaderContactList from "./HeaderContactList"
 
-const ContactList = () => {
+interface IContactListProps {
+  openNewContact(): void
+  toggleModal(modal: string): void
+}
+
+const ContactList = ({ openNewContact, toggleModal }: IContactListProps) => {
   return (
     <Flex flexDir="column" alignItems="center" gap="16px" pos="relative">
       <HeaderContactList />
@@ -42,6 +47,10 @@ const ContactList = () => {
         bottom="16px"
         bg="cyan.600"
         _hover={{ bg: "cyan.700" }}
+        onClick={() => {
+          openNewContact()
+          toggleModal("newContact")
+        }}
       >
         <AddIcon color="gray.100" />
       </Button>

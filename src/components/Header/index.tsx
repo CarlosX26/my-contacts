@@ -11,9 +11,10 @@ import {
 
 interface IHeaderProps {
   openProfile(): void
+  toggleModal(modal: string): void
 }
 
-const Header = ({ openProfile }: IHeaderProps) => {
+const Header = ({ openProfile, toggleModal }: IHeaderProps) => {
   return (
     <Flex
       h="56px"
@@ -34,7 +35,14 @@ const Header = ({ openProfile }: IHeaderProps) => {
           </Stack>
         </MenuButton>
         <MenuList>
-          <MenuItem onClick={openProfile}>Ver Perfil</MenuItem>
+          <MenuItem
+            onClick={() => {
+              openProfile()
+              toggleModal("profile")
+            }}
+          >
+            Ver Perfil
+          </MenuItem>
           <MenuItem>Sair</MenuItem>
         </MenuList>
       </Menu>
