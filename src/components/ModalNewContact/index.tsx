@@ -11,7 +11,7 @@ import {
 
 const ModalNewContact = () => {
   return (
-    <ModalContent>
+    <ModalContent mx="16px">
       <ModalHeader>Adicionar Contato</ModalHeader>
       <ModalCloseButton />
       <ModalBody>

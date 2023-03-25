@@ -14,7 +14,12 @@ const Home = () => {
 
   return (
     <Flex minH="100vh" alignItems="center" justifyContent="space-between">
-      <Image src={illustration} alt="illustration" width="320px" />
+      <Image
+        src={illustration}
+        alt="illustration"
+        width="320px"
+        display={{ base: "none", md: "inline-block" }}
+      />
       {card === "presentation" && <CardPresentation toggleCard={toggleCard} />}
       {card === "register" && <CardRegister toggleCard={toggleCard} />}
       {card === "login" && <CardLogin toggleCard={toggleCard} />}

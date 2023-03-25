@@ -23,7 +23,7 @@ const CardLogin = ({ toggleCard }: ICardLoginProps) => {
       display="flex"
       flexDir="column"
       gap="16px"
-      maxW="50%"
+      w={{ base: "100%", md: "50%" }}
       animate={{ opacity: [0, 1] }}
     >
       <Heading>Login</Heading>
