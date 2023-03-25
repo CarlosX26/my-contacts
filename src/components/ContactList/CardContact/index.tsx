@@ -1,7 +1,13 @@
 import { DeleteIcon } from "@chakra-ui/icons"
 import { Avatar, Button, Flex, ListItem, Stack, Text } from "@chakra-ui/react"
 
-const CardContact = () => {
+interface ICardContactProps {
+  fullName: string
+  email: string
+  phoneNumber: string
+}
+
+const CardContact = ({ fullName, email, phoneNumber }: ICardContactProps) => {
   return (
     <ListItem
       bg="gray.300"
@@ -14,14 +20,14 @@ const CardContact = () => {
       gap="32px"
     >
       <Stack>
-        <Avatar name="Contato Teste" />
+        <Avatar name={fullName} />
       </Stack>
       <Flex flexDir="column">
         <Text fontWeight="bold" fontSize="lg">
-          Nome completo
+          {fullName}
         </Text>
-        <Text>algumemail@mail.com</Text>
-        <Text>12345678911</Text>
+        <Text>{email}</Text>
+        <Text>{phoneNumber}</Text>
       </Flex>
       <Button pos="absolute" top="16px" right="16px">
         <DeleteIcon color="red.400" />
