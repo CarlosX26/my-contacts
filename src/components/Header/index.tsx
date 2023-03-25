@@ -1,6 +1,20 @@
-import { Avatar, Flex, Heading, Stack } from "@chakra-ui/react"
+import {
+  Avatar,
+  Flex,
+  Heading,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Stack,
+} from "@chakra-ui/react"
 
-const Header = () => {
+interface IHeaderProps {
+  openProfile(): void
+  toggleModal(modal: string): void
+}
+
+const Header = ({ openProfile, toggleModal }: IHeaderProps) => {
   return (
     <Flex
       h="56px"
@@ -14,9 +28,24 @@ const Header = () => {
         My Contacts
       </Heading>
 
-      <Stack>
-        <Avatar name="Carlos Jr." />
-      </Stack>
+      <Menu>
+        <MenuButton>
+          <Stack>
+            <Avatar name="Carlos Jr." />
+          </Stack>
+        </MenuButton>
+        <MenuList>
+          <MenuItem
+            onClick={() => {
+              openProfile()
+              toggleModal("profile")
+            }}
+          >
+            Ver Perfil
+          </MenuItem>
+          <MenuItem>Sair</MenuItem>
+        </MenuList>
+      </Menu>
     </Flex>
   )
 }
