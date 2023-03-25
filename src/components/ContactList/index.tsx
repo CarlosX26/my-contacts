@@ -24,7 +24,7 @@ const ContactList = () => {
             width: "8px",
           },
           "&::-webkit-scrollbar-thumb": {
-            background: "gray",
+            background: "#CBD5E0",
             borderRadius: "8px",
           },
         }}

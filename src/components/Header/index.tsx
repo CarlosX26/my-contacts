@@ -1,7 +1,5 @@
-import { ChevronDownIcon } from "@chakra-ui/icons"
 import {
   Avatar,
-  Button,
   Flex,
   Heading,
   Menu,
@@ -11,7 +9,11 @@ import {
   Stack,
 } from "@chakra-ui/react"
 
-const Header = () => {
+interface IHeaderProps {
+  openProfile(): void
+}
+
+const Header = ({ openProfile }: IHeaderProps) => {
   return (
     <Flex
       h="56px"
@@ -32,7 +34,7 @@ const Header = () => {
           </Stack>
         </MenuButton>
         <MenuList>
-          <MenuItem>Ver Perfil</MenuItem>
+          <MenuItem onClick={openProfile}>Ver Perfil</MenuItem>
           <MenuItem>Sair</MenuItem>
         </MenuList>
       </Menu>
