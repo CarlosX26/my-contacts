@@ -8,6 +8,7 @@ interface ICardPresentationProps {
 const CardPresentation = ({ toggleCard }: ICardPresentationProps) => {
   return (
     <Flex
+      w={{ base: "100%", md: "320px" }}
       as={motion.div}
       bg="gray.100"
       borderRadius="8px"
@@ -19,7 +20,7 @@ const CardPresentation = ({ toggleCard }: ICardPresentationProps) => {
       animate={{ opacity: [0, 1] }}
     >
       <Heading>My Contacts</Heading>
-      <Text fontStyle="italic" fontSize="sm">
+      <Text fontStyle="italic" fontSize={{ base: "sm", md: "sm" }}>
         Gerencie seus contatos de um jeito inovador.
       </Text>
       <Button

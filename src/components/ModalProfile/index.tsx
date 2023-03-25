@@ -35,7 +35,7 @@ const ModalProfile = () => {
   }
 
   return (
-    <ModalContent>
+    <ModalContent mx="16px">
       <ModalHeader>Meu Perfil</ModalHeader>
       <ModalCloseButton />
       <ModalBody

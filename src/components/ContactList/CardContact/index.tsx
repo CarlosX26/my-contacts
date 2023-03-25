@@ -10,6 +10,7 @@ const CardContact = () => {
       pos="relative"
       display="flex"
       alignItems="center"
+      flexDir={{ base: "column", md: "row" }}
       gap="32px"
     >
       <Stack>

@@ -1,12 +1,4 @@
-import {
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
-  useDisclosure,
-} from "@chakra-ui/react"
+import { Modal, ModalOverlay, useDisclosure } from "@chakra-ui/react"
 import { useState } from "react"
 import ContactList from "../../components/ContactList"
 import Header from "../../components/Header"
