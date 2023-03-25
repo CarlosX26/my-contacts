@@ -6,10 +6,10 @@ import { BrowserRouter } from "react-router-dom"
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <AuthContextProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AuthContextProvider>
         <App />
-      </BrowserRouter>
-    </AuthContextProvider>
+      </AuthContextProvider>
+    </BrowserRouter>
   </React.StrictMode>
 )

@@ -1,16 +1,12 @@
 import { Flex, Image } from "@chakra-ui/react"
-import { useState } from "react"
 import illustration from "../../assets/illustration.png"
 import CardLogin from "../../components/CardLogin"
 import CardPresentation from "../../components/CardPresentation"
 import CardRegister from "../../components/CardRegister"
+import { useAuthContext } from "../../contexts/authContext"
 
 const Home = () => {
-  const [card, setCard] = useState("presentation")
-
-  const toggleCard = (card: string): void => {
-    setCard(card)
-  }
+  const { card, toggleCard } = useAuthContext()
 
   return (
     <Flex minH="100vh" alignItems="center" justifyContent="space-between">

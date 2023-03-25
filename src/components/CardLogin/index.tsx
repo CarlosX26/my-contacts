@@ -11,30 +11,30 @@ import { motion } from "framer-motion"
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
+import { useAuthContext } from "../../contexts/authContext"
 
 const loginSchema = z.object({
   email: z.string().email(),
   password: z.string(),
 })
 
-type ILoginData = z.infer<typeof loginSchema>
+export type ILoginData = z.infer<typeof loginSchema>
 
 interface ICardLoginProps {
   toggleCard(card: string): void
 }
 
 const CardLogin = ({ toggleCard }: ICardLoginProps) => {
+  const { login } = useAuthContext()
+
   const { register, handleSubmit } = useForm({
     resolver: zodResolver(loginSchema),
   })
 
-  const onSubmit: SubmitHandler<ILoginData> = (data) => {
-    console.log(data)
-  }
-
   return (
     <FormControl
-      onSubmit={handleSubmit(onSubmit as SubmitHandler<FieldValues>)}
+      onSubmit={handleSubmit(login as SubmitHandler<FieldValues>)}
+      isRequired
       as={motion.form}
       bg="gray.100"
       p="16px"
