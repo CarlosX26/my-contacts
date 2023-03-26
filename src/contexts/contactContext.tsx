@@ -8,7 +8,8 @@ interface IContactContextProviderProps {
 
 interface IContactContext {
   contacts: IContact[] | undefined
-  newContact(newContact: INewContact): void
+  newContact(newContact: INewContact): Promise<void>
+  deleteContact(contactId: string): Promise<void>
 }
 
 interface IContact {
@@ -62,12 +63,22 @@ const ContactContextProvider = ({ children }: IContactContextProviderProps) => {
 
   const updateContact = async () => {}
 
-  const deleteContact = async () => {}
+  const deleteContact = async (contactId: string) => {
+    try {
+      const token = localStorage.getItem("@myContact:token")
+      await api.delete(`/contacts/${contactId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      setContacts(contacts?.filter((e) => e.id !== contactId))
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const filterContact = () => {}
 
   return (
-    <contactContext.Provider value={{ contacts, newContact }}>
+    <contactContext.Provider value={{ contacts, newContact, deleteContact }}>
       {children}
     </contactContext.Provider>
   )

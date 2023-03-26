@@ -16,7 +16,7 @@ interface IHeaderProps {
 }
 
 const Header = ({ openProfile, toggleModal }: IHeaderProps) => {
-  const { user } = useAuthContext()
+  const { user, logout } = useAuthContext()
   return (
     <Flex
       h="56px"
@@ -45,7 +45,7 @@ const Header = ({ openProfile, toggleModal }: IHeaderProps) => {
           >
             Ver Perfil
           </MenuItem>
-          <MenuItem>Sair</MenuItem>
+          <MenuItem onClick={() => logout()}>Sair</MenuItem>
         </MenuList>
       </Menu>
     </Flex>

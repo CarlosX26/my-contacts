@@ -39,6 +39,7 @@ const ContactList = ({ openNewContact, toggleModal }: IContactListProps) => {
         {contacts?.map((contact) => (
           <CardContact
             key={contact.id}
+            contactId={contact.id}
             fullName={contact.fullName}
             email={contact.email}
             phoneNumber={contact.phoneNumber}

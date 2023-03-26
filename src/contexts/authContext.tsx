@@ -19,6 +19,7 @@ interface IAuthContext {
   login(loginData: ILoginData): void
   signUp(registerData: IRegisterData): void
   toggleCard(card: string): void
+  logout(): void
   card: string
   user: IUser | undefined
 }
@@ -76,9 +77,10 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps) => {
 
   const updateUser = async () => {}
 
-  const deleteUser = async () => {}
-
-  const logout = () => {}
+  const logout = () => {
+    localStorage.clear()
+    navigate("/")
+  }
 
   const signUp = async (registerData: IRegisterData): Promise<void> => {
     try {
@@ -116,6 +118,7 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps) => {
         login,
         signUp,
         toggleCard,
+        logout,
         card,
         user,
       }}
