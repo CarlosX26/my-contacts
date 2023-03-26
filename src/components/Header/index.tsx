@@ -8,6 +8,7 @@ import {
   MenuList,
   Stack,
 } from "@chakra-ui/react"
+import { useAuthContext } from "../../contexts/authContext"
 
 interface IHeaderProps {
   openProfile(): void
@@ -15,6 +16,7 @@ interface IHeaderProps {
 }
 
 const Header = ({ openProfile, toggleModal }: IHeaderProps) => {
+  const { user } = useAuthContext()
   return (
     <Flex
       h="56px"
@@ -31,7 +33,7 @@ const Header = ({ openProfile, toggleModal }: IHeaderProps) => {
       <Menu>
         <MenuButton>
           <Stack>
-            <Avatar name="Carlos Jr." />
+            <Avatar name={user?.fullName} />
           </Stack>
         </MenuButton>
         <MenuList>

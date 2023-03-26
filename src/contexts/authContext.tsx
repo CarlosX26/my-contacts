@@ -74,6 +74,12 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps) => {
     }
   }
 
+  const updateUser = async () => {}
+
+  const deleteUser = async () => {}
+
+  const logout = () => {}
+
   const signUp = async (registerData: IRegisterData): Promise<void> => {
     try {
       await api.post("/clients", registerData)

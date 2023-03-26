@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react"
+import { INewContact } from "../components/ModalNewContact"
 import api from "../services/api/api"
 
 interface IContactContextProviderProps {
@@ -7,6 +8,7 @@ interface IContactContextProviderProps {
 
 interface IContactContext {
   contacts: IContact[] | undefined
+  newContact(newContact: INewContact): void
 }
 
 interface IContact {
@@ -46,8 +48,26 @@ const ContactContextProvider = ({ children }: IContactContextProviderProps) => {
     }
   }
 
+  const newContact = async (newContact: INewContact): Promise<void> => {
+    try {
+      const token = localStorage.getItem("@myContact:token")
+      const { data } = await api.post("/contacts", newContact, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      setContacts([...contacts!, data])
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const updateContact = async () => {}
+
+  const deleteContact = async () => {}
+
+  const filterContact = () => {}
+
   return (
-    <contactContext.Provider value={{ contacts }}>
+    <contactContext.Provider value={{ contacts, newContact }}>
       {children}
     </contactContext.Provider>
   )
