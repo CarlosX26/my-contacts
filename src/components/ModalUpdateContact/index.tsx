@@ -8,33 +8,34 @@ import {
   ModalContent,
   ModalHeader,
 } from "@chakra-ui/react"
-import { useContactContext } from "../../contexts/contactContext"
-import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
 import { motion } from "framer-motion"
+import { useForm } from "react-hook-form"
+import { useContactContext } from "../../contexts/contactContext"
+import { z } from "zod"
 
-const newContactSchema = z.object({
+const contactUpdate = z.object({
   fullName: z.string().min(3).max(128),
   email: z.string().email(),
   phoneNumber: z.string().min(11).max(11),
 })
 
-export type INewContact = z.infer<typeof newContactSchema>
+export type IContactUpdate = z.infer<typeof contactUpdate>
 
-const ModalNewContact = () => {
-  const { newContact } = useContactContext()
+const ModalUpdateContact = () => {
+  const { contact, updateContact } = useContactContext()
 
-  const { register, handleSubmit } = useForm<INewContact>({
-    resolver: zodResolver(newContactSchema),
+  const { register, handleSubmit } = useForm<IContactUpdate>({
+    resolver: zodResolver(contactUpdate),
   })
+
   return (
     <ModalContent mx="16px">
-      <ModalHeader>Adicionar Contato</ModalHeader>
+      <ModalHeader>Atualizar Contato</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
         <FormControl
-          onSubmit={handleSubmit(newContact)}
+          onSubmit={handleSubmit(updateContact)}
           as={motion.form}
           display="flex"
           flexDir="column"
@@ -44,19 +45,19 @@ const ModalNewContact = () => {
           <Input
             type="text"
             placeholder="Digite o nome do contato."
-            {...register("fullName")}
+            {...register("fullName", { value: contact?.fullName })}
           />
           <FormLabel>Email</FormLabel>
           <Input
             type="text"
             placeholder="Digite o email do contato."
-            {...register("email")}
+            {...register("email", { value: contact?.email })}
           />
           <FormLabel>Telefone</FormLabel>
           <Input
             type="text"
             placeholder="Digite o telefone do contato."
-            {...register("phoneNumber")}
+            {...register("phoneNumber", { value: contact?.phoneNumber })}
           />
           <Button
             type="submit"
@@ -68,7 +69,7 @@ const ModalNewContact = () => {
             width="100%"
             _hover={{ bg: "cyan.700" }}
           >
-            Cadastrar contato
+            Atualizar informações
           </Button>
         </FormControl>
       </ModalBody>
@@ -76,4 +77,4 @@ const ModalNewContact = () => {
   )
 }
 
-export default ModalNewContact
+export default ModalUpdateContact

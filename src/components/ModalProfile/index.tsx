@@ -30,11 +30,34 @@ const profileUpdateSchema = z
 export type IUserUpdate = z.infer<typeof profileUpdateSchema>
 
 const ModalProfile = () => {
+  const [field, setField] = useState("")
   const { user, updateUser } = useAuthContext()
 
-  const { register, handleSubmit, reset } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    unregister,
+    formState: { errors },
+  } = useForm({
     resolver: zodResolver(profileUpdateSchema),
   })
+
+  const getPlaceHolder = (field: string) => {
+    let placeHolder = "Digite "
+    if (field === "fullName") placeHolder += "seu novo nome."
+    if (field === "email") placeHolder += "seu novo email."
+    if (field === "phoneNumber") placeHolder += "seu novo telefone."
+    if (field === "password") placeHolder += "sua nova senha."
+
+    return placeHolder
+  }
+
+  const toggleField = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+    const previousField = field
+    unregister(previousField)
+    setField(event.target.value)
+  }
 
   return (
     <ModalContent mx="16px">
@@ -51,6 +74,45 @@ const ModalProfile = () => {
           <Avatar name={user?.fullName} />
         </Stack>
         <Heading>{user?.fullName}</Heading>
+
+        <FormControl
+          onSubmit={handleSubmit((data) => updateUser(data, reset))}
+          as={motion.form}
+          display="flex"
+          flexDir="column"
+          gap="16px"
+        >
+          <Select
+            placeholder="Deseja atualizar alguma informação?"
+            onChange={(e) => toggleField(e)}
+          >
+            <option value="fullName">Nome</option>
+            <option value="email">Email</option>
+            <option value="phoneNumber">Telefone</option>
+            <option value="password">Senha</option>
+          </Select>
+          {field && (
+            <>
+              <Input
+                type={field === "password" ? "password" : "text"}
+                placeholder={getPlaceHolder(field)}
+                {...register(`${field}`)}
+              />
+              <Button
+                type="submit"
+                bg="cyan.600"
+                borderRadius="8px"
+                fontWeight="bold"
+                color="gray.100"
+                p="16px"
+                width="100%"
+                _hover={{ bg: "cyan.700" }}
+              >
+                Atualizar Informações
+              </Button>
+            </>
+          )}
+        </FormControl>
       </ModalBody>
     </ModalContent>
   )

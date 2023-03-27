@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import { INewContact } from "../components/ModalNewContact"
+import { IContactUpdate } from "../components/ModalUpdateContact"
 import api from "../services/api/api"
 
 interface IContactContextProviderProps {
@@ -10,9 +11,14 @@ interface IContactContext {
   contacts: IContact[] | undefined
   newContact(newContact: INewContact): Promise<void>
   deleteContact(contactId: string): Promise<void>
+  filterContact: string
+  setFilterContact: React.Dispatch<React.SetStateAction<string>>
+  updateContact(contactData: IContactUpdate): Promise<void>
+  contact: IContact | undefined
+  setContact: React.Dispatch<React.SetStateAction<IContact | undefined>>
 }
 
-interface IContact {
+export interface IContact {
   id: string
   fullName: string
   email: string
@@ -24,6 +30,8 @@ const contactContext = createContext({} as IContactContext)
 
 const ContactContextProvider = ({ children }: IContactContextProviderProps) => {
   const [contacts, setContacts] = useState<IContact[]>()
+  const [contact, setContact] = useState<IContact>()
+  const [filterContact, setFilterContact] = useState("")
 
   useEffect(() => {
     ;(async () => {
@@ -61,7 +69,21 @@ const ContactContextProvider = ({ children }: IContactContextProviderProps) => {
     }
   }
 
-  const updateContact = async () => {}
+  const updateContact = async (contactData: IContactUpdate): Promise<void> => {
+    try {
+      const token = localStorage.getItem("@myContact:token")
+      const { data } = await api.patch(
+        `/contacts/${contact?.id}`,
+        contactData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      setContacts(contacts?.map((e) => (e.id === data.id ? data : e)))
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const deleteContact = async (contactId: string) => {
     try {
@@ -75,10 +97,19 @@ const ContactContextProvider = ({ children }: IContactContextProviderProps) => {
     }
   }
 
-  const filterContact = () => {}
-
   return (
-    <contactContext.Provider value={{ contacts, newContact, deleteContact }}>
+    <contactContext.Provider
+      value={{
+        contacts,
+        newContact,
+        deleteContact,
+        filterContact,
+        setFilterContact,
+        updateContact,
+        contact,
+        setContact,
+      }}
+    >
       {children}
     </contactContext.Provider>
   )
