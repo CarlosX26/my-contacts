@@ -10,6 +10,8 @@ interface IContactContext {
   contacts: IContact[] | undefined
   newContact(newContact: INewContact): Promise<void>
   deleteContact(contactId: string): Promise<void>
+  filterContact: string
+  setFilterContact: React.Dispatch<React.SetStateAction<string>>
 }
 
 interface IContact {
@@ -24,6 +26,7 @@ const contactContext = createContext({} as IContactContext)
 
 const ContactContextProvider = ({ children }: IContactContextProviderProps) => {
   const [contacts, setContacts] = useState<IContact[]>()
+  const [filterContact, setFilterContact] = useState("")
 
   useEffect(() => {
     ;(async () => {
@@ -75,10 +78,16 @@ const ContactContextProvider = ({ children }: IContactContextProviderProps) => {
     }
   }
 
-  const filterContact = () => {}
-
   return (
-    <contactContext.Provider value={{ contacts, newContact, deleteContact }}>
+    <contactContext.Provider
+      value={{
+        contacts,
+        newContact,
+        deleteContact,
+        filterContact,
+        setFilterContact,
+      }}
+    >
       {children}
     </contactContext.Provider>
   )
