@@ -5,11 +5,11 @@ import CardContact from "./CardContact"
 import HeaderContactList from "./HeaderContactList"
 
 interface IContactListProps {
-  openNewContact(): void
+  openModal(): void
   toggleModal(modal: string): void
 }
 
-const ContactList = ({ openNewContact, toggleModal }: IContactListProps) => {
+const ContactList = ({ openModal, toggleModal }: IContactListProps) => {
   const { contacts, filterContact } = useContactContext()
 
   const filteredContacts = contacts?.filter((e) => {
@@ -45,10 +45,9 @@ const ContactList = ({ openNewContact, toggleModal }: IContactListProps) => {
         {filteredContacts?.map((contact) => (
           <CardContact
             key={contact.id}
-            contactId={contact.id}
-            fullName={contact.fullName}
-            email={contact.email}
-            phoneNumber={contact.phoneNumber}
+            contact={contact}
+            openUpdateContact={openModal}
+            toggleModal={toggleModal}
           />
         ))}
         {filteredContacts?.length === 0 && (
@@ -62,7 +61,7 @@ const ContactList = ({ openNewContact, toggleModal }: IContactListProps) => {
         bg="cyan.600"
         _hover={{ bg: "cyan.700" }}
         onClick={() => {
-          openNewContact()
+          openModal()
           toggleModal("newContact")
         }}
       >
