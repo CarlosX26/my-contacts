@@ -1,16 +1,22 @@
 import { AddIcon } from "@chakra-ui/icons"
-import { Button, Flex, UnorderedList } from "@chakra-ui/react"
+import { Button, Flex, UnorderedList, Text } from "@chakra-ui/react"
 import { useContactContext } from "../../contexts/contactContext"
 import CardContact from "./CardContact"
 import HeaderContactList from "./HeaderContactList"
 
 interface IContactListProps {
-  openNewContact(): void
+  openModal(): void
   toggleModal(modal: string): void
 }
 
-const ContactList = ({ openNewContact, toggleModal }: IContactListProps) => {
-  const { contacts } = useContactContext()
+const ContactList = ({ openModal, toggleModal }: IContactListProps) => {
+  const { contacts, filterContact } = useContactContext()
+
+  const filteredContacts = contacts?.filter((e) => {
+    const contactName = e.fullName.toLowerCase()
+
+    return contactName.includes(filterContact.toLowerCase().trim())
+  })
   return (
     <Flex flexDir="column" alignItems="center" gap="16px" pos="relative">
       <HeaderContactList />
@@ -36,15 +42,17 @@ const ContactList = ({ openNewContact, toggleModal }: IContactListProps) => {
           },
         }}
       >
-        {contacts?.map((contact) => (
+        {filteredContacts?.map((contact) => (
           <CardContact
             key={contact.id}
-            contactId={contact.id}
-            fullName={contact.fullName}
-            email={contact.email}
-            phoneNumber={contact.phoneNumber}
+            contact={contact}
+            openUpdateContact={openModal}
+            toggleModal={toggleModal}
           />
         ))}
+        {filteredContacts?.length === 0 && (
+          <Text>Nenhum contato encontrado :/</Text>
+        )}
       </UnorderedList>
       <Button
         pos="absolute"
@@ -53,7 +61,7 @@ const ContactList = ({ openNewContact, toggleModal }: IContactListProps) => {
         bg="cyan.600"
         _hover={{ bg: "cyan.700" }}
         onClick={() => {
-          openNewContact()
+          openModal()
           toggleModal("newContact")
         }}
       >

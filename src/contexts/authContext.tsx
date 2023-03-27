@@ -22,7 +22,10 @@ interface IAuthContext {
   signUp(registerData: IRegisterData): void
   toggleCard(card: string): void
   logout(): void
-  updateUser(userData: IUserUpdate): Promise<void>
+  updateUser(
+    userData: IUserUpdate,
+    reset: UseFormReset<FieldValues>
+  ): Promise<void>
   card: string
   user: IUser | undefined
 }
@@ -78,15 +81,19 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps) => {
     }
   }
 
-  const updateUser = async (userData: IUserUpdate): Promise<void> => {
+  const updateUser = async (
+    userData: IUserUpdate,
+    reset: UseFormReset<FieldValues>
+  ): Promise<void> => {
     try {
       const token = localStorage.getItem("@myContact:token")
-      const { data } = await api.patch(`/clients/${user?.id}`, userData, {
+      const { data } = await api.patch("/clients/profile", userData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      console.log(data)
+      reset()
+      setUser(data)
     } catch (e) {
       console.log(e)
     }

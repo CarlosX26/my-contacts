@@ -1,21 +1,19 @@
 import { DeleteIcon } from "@chakra-ui/icons"
 import { Avatar, Button, Flex, ListItem, Stack, Text } from "@chakra-ui/react"
-import { useContactContext } from "../../../contexts/contactContext"
+import { IContact, useContactContext } from "../../../contexts/contactContext"
 
 interface ICardContactProps {
-  fullName: string
-  email: string
-  phoneNumber: string
-  contactId: string
+  contact: IContact
+  openUpdateContact(): void
+  toggleModal(modal: string): void
 }
 
 const CardContact = ({
-  fullName,
-  email,
-  phoneNumber,
-  contactId,
+  contact,
+  openUpdateContact,
+  toggleModal,
 }: ICardContactProps) => {
-  const { deleteContact } = useContactContext()
+  const { deleteContact, setContact } = useContactContext()
 
   return (
     <ListItem
@@ -27,22 +25,31 @@ const CardContact = ({
       alignItems="center"
       flexDir={{ base: "column", md: "row" }}
       gap="32px"
+      onClick={(e) => {
+        e.stopPropagation()
+        setContact(contact)
+        toggleModal("updateContact")
+        openUpdateContact()
+      }}
     >
       <Stack>
-        <Avatar name={fullName} />
+        <Avatar name={contact.fullName} />
       </Stack>
       <Flex flexDir="column">
         <Text fontWeight="bold" fontSize="lg">
-          {fullName}
+          {contact.fullName}
         </Text>
-        <Text>{email}</Text>
-        <Text>{phoneNumber}</Text>
+        <Text>{contact.email}</Text>
+        <Text>{contact.phoneNumber}</Text>
       </Flex>
       <Button
         pos="absolute"
         top="16px"
         right="16px"
-        onClick={() => deleteContact(contactId)}
+        onClick={(e) => {
+          e.stopPropagation()
+          deleteContact(contact.id)
+        }}
       >
         <DeleteIcon color="red.400" />
       </Button>
