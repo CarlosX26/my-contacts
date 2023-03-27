@@ -1,10 +1,12 @@
 import { useToast } from "@chakra-ui/react"
 import { AxiosError } from "axios"
 import React, { createContext, useContext, useEffect, useState } from "react"
+import { FieldValues, UseFormReset } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 
 import { ILoginData } from "../components/CardLogin"
 import { IRegisterData } from "../components/CardRegister"
+import { IUserUpdate } from "../components/ModalProfile"
 import api from "../services/api/api"
 
 interface IUser {
@@ -20,6 +22,7 @@ interface IAuthContext {
   signUp(registerData: IRegisterData): void
   toggleCard(card: string): void
   logout(): void
+  updateUser(userData: IUserUpdate): Promise<void>
   card: string
   user: IUser | undefined
 }
@@ -75,7 +78,19 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps) => {
     }
   }
 
-  const updateUser = async () => {}
+  const updateUser = async (userData: IUserUpdate): Promise<void> => {
+    try {
+      const token = localStorage.getItem("@myContact:token")
+      const { data } = await api.patch(`/clients/${user?.id}`, userData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      console.log(data)
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   const logout = () => {
     localStorage.clear()
@@ -117,6 +132,7 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps) => {
       value={{
         login,
         signUp,
+        updateUser,
         toggleCard,
         logout,
         card,
