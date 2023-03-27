@@ -1,7 +1,22 @@
 import { DeleteIcon } from "@chakra-ui/icons"
 import { Avatar, Button, Flex, ListItem, Stack, Text } from "@chakra-ui/react"
+import { useContactContext } from "../../../contexts/contactContext"
 
-const CardContact = () => {
+interface ICardContactProps {
+  fullName: string
+  email: string
+  phoneNumber: string
+  contactId: string
+}
+
+const CardContact = ({
+  fullName,
+  email,
+  phoneNumber,
+  contactId,
+}: ICardContactProps) => {
+  const { deleteContact } = useContactContext()
+
   return (
     <ListItem
       bg="gray.300"
@@ -14,16 +29,21 @@ const CardContact = () => {
       gap="32px"
     >
       <Stack>
-        <Avatar name="Contato Teste" />
+        <Avatar name={fullName} />
       </Stack>
       <Flex flexDir="column">
         <Text fontWeight="bold" fontSize="lg">
-          Nome completo
+          {fullName}
         </Text>
-        <Text>algumemail@mail.com</Text>
-        <Text>12345678911</Text>
+        <Text>{email}</Text>
+        <Text>{phoneNumber}</Text>
       </Flex>
-      <Button pos="absolute" top="16px" right="16px">
+      <Button
+        pos="absolute"
+        top="16px"
+        right="16px"
+        onClick={() => deleteContact(contactId)}
+      >
         <DeleteIcon color="red.400" />
       </Button>
     </ListItem>

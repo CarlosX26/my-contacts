@@ -7,32 +7,34 @@ import {
   Avatar,
   Heading,
   FormControl,
-  FormLabel,
   Select,
   Input,
   Button,
 } from "@chakra-ui/react"
 import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { z } from "zod"
+import { useAuthContext } from "../../contexts/authContext"
+import { motion } from "framer-motion"
+
+const profileUpdateSchema = z
+  .object({
+    fullName: z.string().max(128),
+    email: z.string().email(),
+    phoneNumber: z.string().max(11).min(11),
+    password: z.string(),
+  })
+  .partial()
+
+export type IUserUpdate = z.infer<typeof profileUpdateSchema>
 
 const ModalProfile = () => {
-  const [field, setField] = useState("")
+  const { user, updateUser } = useAuthContext()
 
-  const getPlaceholder = (field: string) => {
-    let placeholder = "Digite "
-    if (field === "fullName") {
-      placeholder += "seu novo nome completo."
-    }
-    if (field === "email") {
-      placeholder += "seu novo email."
-    }
-    if (field === "phoneNumber") {
-      placeholder += "seu novo telefone."
-    }
-    if (field === "password") {
-      placeholder += "sua nova senha."
-    }
-    return placeholder
-  }
+  const { register, handleSubmit, reset } = useForm({
+    resolver: zodResolver(profileUpdateSchema),
+  })
 
   return (
     <ModalContent mx="16px">
@@ -46,35 +48,9 @@ const ModalProfile = () => {
         gap="16px"
       >
         <Stack>
-          <Avatar name="Carlos Jr." />
+          <Avatar name={user?.fullName} />
         </Stack>
-        <Heading>Carlos Jr.</Heading>
-        <FormControl display="flex" flexDir="column" gap="16px">
-          <Select
-            placeholder="Deseja atualizar seus dados?"
-            onChange={(e) => setField(e.target.value)}
-          >
-            <option value="fullName">Nome Completo</option>
-            <option value="email">Email</option>
-            <option value="phoneNumber">Telefone</option>
-            <option value="password">Senha</option>
-          </Select>
-          {field && <Input type="text" placeholder={getPlaceholder(field)} />}
-          {field && (
-            <Button
-              type="submit"
-              bg="cyan.600"
-              borderRadius="8px"
-              fontWeight="bold"
-              color="gray.100"
-              p="16px"
-              width="100%"
-              _hover={{ bg: "cyan.700" }}
-            >
-              Atualizar Informação
-            </Button>
-          )}
-        </FormControl>
+        <Heading>{user?.fullName}</Heading>
       </ModalBody>
     </ModalContent>
   )

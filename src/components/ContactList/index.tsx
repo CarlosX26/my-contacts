@@ -1,5 +1,6 @@
 import { AddIcon } from "@chakra-ui/icons"
 import { Button, Flex, UnorderedList } from "@chakra-ui/react"
+import { useContactContext } from "../../contexts/contactContext"
 import CardContact from "./CardContact"
 import HeaderContactList from "./HeaderContactList"
 
@@ -9,6 +10,7 @@ interface IContactListProps {
 }
 
 const ContactList = ({ openNewContact, toggleModal }: IContactListProps) => {
+  const { contacts } = useContactContext()
   return (
     <Flex flexDir="column" alignItems="center" gap="16px" pos="relative">
       <HeaderContactList />
@@ -34,12 +36,15 @@ const ContactList = ({ openNewContact, toggleModal }: IContactListProps) => {
           },
         }}
       >
-        <CardContact />
-        <CardContact />
-        <CardContact />
-        <CardContact />
-        <CardContact />
-        <CardContact />
+        {contacts?.map((contact) => (
+          <CardContact
+            key={contact.id}
+            contactId={contact.id}
+            fullName={contact.fullName}
+            email={contact.email}
+            phoneNumber={contact.phoneNumber}
+          />
+        ))}
       </UnorderedList>
       <Button
         pos="absolute"

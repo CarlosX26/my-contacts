@@ -1,10 +1,12 @@
 import { useToast } from "@chakra-ui/react"
 import { AxiosError } from "axios"
 import React, { createContext, useContext, useEffect, useState } from "react"
+import { FieldValues, UseFormReset } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 
 import { ILoginData } from "../components/CardLogin"
 import { IRegisterData } from "../components/CardRegister"
+import { IUserUpdate } from "../components/ModalProfile"
 import api from "../services/api/api"
 
 interface IUser {
@@ -19,6 +21,8 @@ interface IAuthContext {
   login(loginData: ILoginData): void
   signUp(registerData: IRegisterData): void
   toggleCard(card: string): void
+  logout(): void
+  updateUser(userData: IUserUpdate): Promise<void>
   card: string
   user: IUser | undefined
 }
@@ -38,15 +42,7 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps) => {
   useEffect(() => {
     const token = localStorage.getItem("@myContact:token")
     ;(async () => {
-      try {
-        const { data } = await api.get("/clients/profile", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        setUser(data)
-        navigate("/dashboard", { replace: true })
-      } catch (error) {
-        console.log(error)
-      }
+      await getUser(token!)
     })()
   }, [])
 
@@ -54,12 +50,24 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps) => {
     setCard(card)
   }
 
+  const getUser = async (token: string): Promise<void> => {
+    try {
+      const { data } = await api.get("/clients/profile", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      setUser(data)
+      navigate("/dashboard", { replace: true })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const login = async (loginData: ILoginData): Promise<void> => {
     try {
       const { data } = await api.post("/auth", loginData)
       localStorage.setItem("@myContact:token", data.token)
       navigate("/dashboard", { replace: true })
-      console.log(data)
+      await getUser(data.token)
     } catch (error) {
       toast({
         title: "Email ou senha inválidos.",
@@ -70,9 +78,28 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps) => {
     }
   }
 
+  const updateUser = async (userData: IUserUpdate): Promise<void> => {
+    try {
+      const token = localStorage.getItem("@myContact:token")
+      const { data } = await api.patch(`/clients/${user?.id}`, userData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      console.log(data)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const logout = () => {
+    localStorage.clear()
+    navigate("/")
+  }
+
   const signUp = async (registerData: IRegisterData): Promise<void> => {
     try {
-      const { data } = await api.post("/clients", registerData)
+      await api.post("/clients", registerData)
       toggleCard("login")
       toast({
         title: "Cadastro realizado.",
@@ -105,7 +132,9 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps) => {
       value={{
         login,
         signUp,
+        updateUser,
         toggleCard,
+        logout,
         card,
         user,
       }}
