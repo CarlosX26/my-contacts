@@ -9,13 +9,13 @@ Este é um aplicativo no qual você pode gerenciar seus contatos de maneira simp
 Clone o projeto
 
 ```bash
-  git clone git@github.com:CarlosX26/my-contacts.git
+  git clone git@github.com:CarlosX26/my-contacts-front-end.git
 ```
 
 Entre no diretório do projeto
 
 ```bash
-  cd my-contacts
+  cd my-contacts-front-end
 ```
 
 Instale as dependências
