@@ -8,6 +8,14 @@ import { useAuthContext } from "../../contexts/authContext"
 const Home = () => {
   const { card, toggleCard } = useAuthContext()
 
+  const cards: {
+    [key: string]: JSX.Element
+  } = {
+    presentation: <CardPresentation toggleCard={toggleCard} />,
+    register: <CardRegister toggleCard={toggleCard} />,
+    login: <CardLogin toggleCard={toggleCard} />,
+  }
+
   return (
     <Flex minH="100vh" alignItems="center" justifyContent="space-between">
       <Image
@@ -16,9 +24,8 @@ const Home = () => {
         width="320px"
         display={{ base: "none", md: "inline-block" }}
       />
-      {card === "presentation" && <CardPresentation toggleCard={toggleCard} />}
-      {card === "register" && <CardRegister toggleCard={toggleCard} />}
-      {card === "login" && <CardLogin toggleCard={toggleCard} />}
+
+      {cards[card]}
     </Flex>
   )
 }
