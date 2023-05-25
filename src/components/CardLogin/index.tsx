@@ -8,7 +8,7 @@ import {
   Link,
 } from "@chakra-ui/react"
 import { motion } from "framer-motion"
-import { useForm, SubmitHandler, FieldValues } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useAuthContext } from "../../contexts/authContext"
 import { LoginForm } from "../../validations/auth"
