@@ -1,6 +1,8 @@
 import { z } from "zod"
-import { LoginForm } from "./auth"
+import { LoginForm, RegisterForm } from "./auth"
 
 type ILoginForm = z.infer<typeof LoginForm>
 
-export type { ILoginForm }
+type IRegisterForm = z.infer<typeof RegisterForm>
+
+export type { ILoginForm, IRegisterForm }
