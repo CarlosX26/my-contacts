@@ -14,20 +14,9 @@ import {
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
 import { useAuthContext } from "../../contexts/authContext"
 import { motion } from "framer-motion"
-
-const profileUpdateSchema = z
-  .object({
-    fullName: z.string().max(128),
-    email: z.string().email(),
-    phoneNumber: z.string().max(11).min(11),
-    password: z.string(),
-  })
-  .partial()
-
-export type IUserUpdate = z.infer<typeof profileUpdateSchema>
+import { UpdateForm } from "../../validations/user"
 
 const ModalProfile = () => {
   const [field, setField] = useState("")
@@ -40,17 +29,19 @@ const ModalProfile = () => {
     unregister,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(profileUpdateSchema),
+    resolver: zodResolver(UpdateForm),
   })
 
-  const getPlaceHolder = (field: string) => {
-    let placeHolder = "Digite "
-    if (field === "fullName") placeHolder += "seu novo nome."
-    if (field === "email") placeHolder += "seu novo email."
-    if (field === "phoneNumber") placeHolder += "seu novo telefone."
-    if (field === "password") placeHolder += "sua nova senha."
-
-    return placeHolder
+  const getPlaceHolder = (field: string): string => {
+    const placeHolders: {
+      [key: string]: string
+    } = {
+      fullName: "seu novo nome.",
+      email: "seu novo email.",
+      phoneNumber: "seu novo telefone.",
+      password: "sua nova senha.",
+    }
+    return `Digite ${placeHolders[field]}`
   }
 
   const toggleField = (event: React.ChangeEvent<HTMLSelectElement>): void => {
