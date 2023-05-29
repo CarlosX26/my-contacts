@@ -1,11 +1,22 @@
 import { z } from "zod"
 import { LoginForm } from "./auth"
-import { RegisterForm, UpdateForm } from "./user"
+import { RegisterUserForm, UpdateUserForm } from "./user"
+import { RegisterContactForm, UpdateContactForm } from "./contact"
 
 type ILoginForm = z.infer<typeof LoginForm>
 
-type IRegisterForm = z.infer<typeof RegisterForm>
+type IRegisterUserForm = z.infer<typeof RegisterUserForm>
 
-type IUpdateForm = z.infer<typeof UpdateForm>
+type IUpdateUserForm = z.infer<typeof UpdateUserForm>
 
-export type { ILoginForm, IRegisterForm, IUpdateForm }
+type IRegisterContactForm = z.infer<typeof RegisterContactForm>
+
+type IUpdateContactForm = z.infer<typeof UpdateContactForm>
+
+export type {
+  ILoginForm,
+  IRegisterUserForm,
+  IUpdateUserForm,
+  IRegisterContactForm,
+  IUpdateContactForm,
+}
