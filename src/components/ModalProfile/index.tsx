@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useAuthContext } from "../../contexts/authContext"
 import { motion } from "framer-motion"
-import { UpdateForm } from "../../validations/user"
+import { UpdateUserForm } from "../../validations/user"
 
 const ModalProfile = () => {
   const [field, setField] = useState("")
@@ -29,7 +29,7 @@ const ModalProfile = () => {
     unregister,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(UpdateForm),
+    resolver: zodResolver(UpdateUserForm),
   })
 
   const getPlaceHolder = (field: string): string => {
