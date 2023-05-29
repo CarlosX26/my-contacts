@@ -4,9 +4,9 @@ import React, { createContext, useContext, useEffect, useState } from "react"
 import { FieldValues, UseFormReset } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 
-import { ILoginData } from "../components/CardLogin"
-import { IRegisterData } from "../components/CardRegister"
-import { IUserUpdate } from "../components/ModalProfile"
+import { ILoginForm } from "../validations/types"
+import { IRegisterUserForm } from "../validations/types"
+import { IUpdateUserForm } from "../validations/types"
 import api from "../services/api/api"
 
 interface IUser {
@@ -18,12 +18,12 @@ interface IUser {
 }
 
 interface IAuthContext {
-  login(loginData: ILoginData): void
-  signUp(registerData: IRegisterData): void
+  login(loginData: ILoginForm): void
+  signUp(registerData: IRegisterUserForm): void
   toggleCard(card: string): void
   logout(): void
   updateUser(
-    userData: IUserUpdate,
+    userData: IUpdateUserForm,
     reset: UseFormReset<FieldValues>
   ): Promise<void>
   card: string
@@ -65,7 +65,7 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps) => {
     }
   }
 
-  const login = async (loginData: ILoginData): Promise<void> => {
+  const login = async (loginData: ILoginForm): Promise<void> => {
     try {
       const { data } = await api.post("/auth", loginData)
       localStorage.setItem("@myContact:token", data.token)
@@ -82,7 +82,7 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps) => {
   }
 
   const updateUser = async (
-    userData: IUserUpdate,
+    userData: IUpdateUserForm,
     reset: UseFormReset<FieldValues>
   ): Promise<void> => {
     try {
@@ -104,7 +104,7 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps) => {
     navigate("/")
   }
 
-  const signUp = async (registerData: IRegisterData): Promise<void> => {
+  const signUp = async (registerData: IRegisterUserForm): Promise<void> => {
     try {
       await api.post("/clients", registerData)
       toggleCard("login")

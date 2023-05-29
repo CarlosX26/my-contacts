@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react"
-import { INewContact } from "../components/ModalNewContact"
-import { IContactUpdate } from "../components/ModalUpdateContact"
+import { IRegisterContactForm } from "../validations/types"
+import { IUpdateContactForm } from "../validations/types"
 import api from "../services/api/api"
 
 interface IContactContextProviderProps {
@@ -9,11 +9,11 @@ interface IContactContextProviderProps {
 
 interface IContactContext {
   contacts: IContact[] | undefined
-  newContact(newContact: INewContact): Promise<void>
+  newContact(newContact: IRegisterContactForm): Promise<void>
   deleteContact(contactId: string): Promise<void>
   filterContact: string
   setFilterContact: React.Dispatch<React.SetStateAction<string>>
-  updateContact(contactData: IContactUpdate): Promise<void>
+  updateContact(contactData: IUpdateContactForm): Promise<void>
   contact: IContact | undefined
   setContact: React.Dispatch<React.SetStateAction<IContact | undefined>>
 }
@@ -57,7 +57,9 @@ const ContactContextProvider = ({ children }: IContactContextProviderProps) => {
     }
   }
 
-  const newContact = async (newContact: INewContact): Promise<void> => {
+  const newContact = async (
+    newContact: IRegisterContactForm
+  ): Promise<void> => {
     try {
       const token = localStorage.getItem("@myContact:token")
       const { data } = await api.post("/contacts", newContact, {
@@ -69,7 +71,9 @@ const ContactContextProvider = ({ children }: IContactContextProviderProps) => {
     }
   }
 
-  const updateContact = async (contactData: IContactUpdate): Promise<void> => {
+  const updateContact = async (
+    contactData: IUpdateContactForm
+  ): Promise<void> => {
     try {
       const token = localStorage.getItem("@myContact:token")
       const { data } = await api.patch(
