@@ -20,7 +20,7 @@ const UserForm = z.object({
   confirmPassword: z.string(),
 })
 
-const RegisterForm = UserForm.refine(
+const RegisterUserForm = UserForm.refine(
   (data) => data.password === data.confirmPassword,
   {
     message: "As senhas não correspondem.",
@@ -28,6 +28,6 @@ const RegisterForm = UserForm.refine(
   }
 )
 
-const UpdateForm = UserForm.omit({ confirmPassword: true }).partial()
+const UpdateUserForm = UserForm.omit({ confirmPassword: true }).partial()
 
-export { RegisterForm, UpdateForm }
+export { RegisterUserForm, UpdateUserForm }
