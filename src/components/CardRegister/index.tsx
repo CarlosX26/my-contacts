@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 import { useAuthContext } from "../../contexts/authContext"
-import { RegisterForm } from "../../validations/auth"
+import { RegisterForm } from "../../validations/user"
 import { IRegisterForm } from "../../validations/types"
 
 interface ICardResgisterProps {
