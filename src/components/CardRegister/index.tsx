@@ -12,8 +12,8 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 import { useAuthContext } from "../../contexts/authContext"
-import { RegisterForm } from "../../validations/user"
-import { IRegisterForm } from "../../validations/types"
+import { RegisterUserForm } from "../../validations/user"
+import { IRegisterUserForm } from "../../validations/types"
 
 interface ICardResgisterProps {
   toggleCard(card: string): void
@@ -26,8 +26,8 @@ const CardRegister = ({ toggleCard }: ICardResgisterProps) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IRegisterForm>({
-    resolver: zodResolver(RegisterForm),
+  } = useForm<IRegisterUserForm>({
+    resolver: zodResolver(RegisterUserForm),
   })
 
   return (
