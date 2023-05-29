@@ -12,21 +12,14 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { motion } from "framer-motion"
 import { useForm } from "react-hook-form"
 import { useContactContext } from "../../contexts/contactContext"
-import { z } from "zod"
-
-const contactUpdate = z.object({
-  fullName: z.string().min(3).max(128),
-  email: z.string().email(),
-  phoneNumber: z.string().min(11).max(11),
-})
-
-export type IContactUpdate = z.infer<typeof contactUpdate>
+import { IUpdateContactForm } from "../../validations/types"
+import { UpdateContactForm } from "../../validations/contact"
 
 const ModalUpdateContact = () => {
   const { contact, updateContact } = useContactContext()
 
-  const { register, handleSubmit } = useForm<IContactUpdate>({
-    resolver: zodResolver(contactUpdate),
+  const { register, handleSubmit } = useForm<IUpdateContactForm>({
+    resolver: zodResolver(UpdateContactForm),
   })
 
   return (
