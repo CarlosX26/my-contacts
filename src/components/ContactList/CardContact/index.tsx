@@ -1,6 +1,7 @@
 import { DeleteIcon } from "@chakra-ui/icons"
 import { Avatar, Button, Flex, ListItem, Stack, Text } from "@chakra-ui/react"
-import { IContact, useContactContext } from "../../../contexts/contactContext"
+import { useContactContext } from "../../../contexts/contactContext"
+import { IContact } from "../../../contexts/types"
 
 interface ICardContactProps {
   contact: IContact
