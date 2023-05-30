@@ -18,6 +18,7 @@ const CardContact = ({
 
   return (
     <ListItem
+      cursor="pointer"
       bg="gray.300"
       borderRadius="8px"
       p="16px"
@@ -44,9 +45,12 @@ const CardContact = ({
         <Text>{contact.phoneNumber}</Text>
       </Flex>
       <Button
+        w="40px"
+        bg="gray.100"
         pos="absolute"
         top="16px"
         right="16px"
+        _hover={{ bg: "gray.200" }}
         onClick={(e) => {
           e.stopPropagation()
           deleteContact(contact.id)
