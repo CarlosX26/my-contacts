@@ -51,18 +51,7 @@ const ModalNewContact = () => {
             placeholder="Digite o telefone do contato."
             {...register("phoneNumber")}
           />
-          <Button
-            type="submit"
-            bg="cyan.600"
-            borderRadius="8px"
-            fontWeight="bold"
-            color="gray.100"
-            p="16px"
-            width="100%"
-            _hover={{ bg: "cyan.700" }}
-          >
-            Cadastrar contato
-          </Button>
+          <Button type="submit">Cadastrar contato</Button>
         </FormControl>
       </ModalBody>
     </ModalContent>
