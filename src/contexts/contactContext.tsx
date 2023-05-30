@@ -2,33 +2,11 @@ import { createContext, useContext, useEffect, useState } from "react"
 import { IRegisterContactForm } from "../validations/types"
 import { IUpdateContactForm } from "../validations/types"
 import api from "../services/api/api"
-
-interface IContactContextProviderProps {
-  children: React.ReactNode
-}
-
-interface IContactContext {
-  contacts: IContact[] | undefined
-  newContact(newContact: IRegisterContactForm): Promise<void>
-  deleteContact(contactId: string): Promise<void>
-  filterContact: string
-  setFilterContact: React.Dispatch<React.SetStateAction<string>>
-  updateContact(contactData: IUpdateContactForm): Promise<void>
-  contact: IContact | undefined
-  setContact: React.Dispatch<React.SetStateAction<IContact | undefined>>
-}
-
-export interface IContact {
-  id: string
-  fullName: string
-  email: string
-  phoneNumber: string
-  createdAt: string
-}
+import { IContact, IContactContext, IContextProviderProps } from "./types"
 
 const contactContext = createContext({} as IContactContext)
 
-const ContactContextProvider = ({ children }: IContactContextProviderProps) => {
+const ContactContextProvider = ({ children }: IContextProviderProps) => {
   const [contacts, setContacts] = useState<IContact[]>()
   const [contact, setContact] = useState<IContact>()
   const [filterContact, setFilterContact] = useState("")
