@@ -52,18 +52,7 @@ const ModalUpdateContact = () => {
             placeholder="Digite o telefone do contato."
             {...register("phoneNumber", { value: contact?.phoneNumber })}
           />
-          <Button
-            type="submit"
-            bg="cyan.600"
-            borderRadius="8px"
-            fontWeight="bold"
-            color="gray.100"
-            p="16px"
-            width="100%"
-            _hover={{ bg: "cyan.700" }}
-          >
-            Atualizar informações
-          </Button>
+          <Button type="submit">Atualizar informações</Button>
         </FormControl>
       </ModalBody>
     </ModalContent>
