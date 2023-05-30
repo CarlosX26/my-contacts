@@ -11,22 +11,15 @@ import {
 import { useContactContext } from "../../contexts/contactContext"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
 import { motion } from "framer-motion"
-
-const newContactSchema = z.object({
-  fullName: z.string().min(3).max(128),
-  email: z.string().email(),
-  phoneNumber: z.string().min(11).max(11),
-})
-
-export type INewContact = z.infer<typeof newContactSchema>
+import { IRegisterContactForm } from "../../validations/types"
+import { RegisterContactForm } from "../../validations/contact"
 
 const ModalNewContact = () => {
   const { newContact } = useContactContext()
 
-  const { register, handleSubmit } = useForm<INewContact>({
-    resolver: zodResolver(newContactSchema),
+  const { register, handleSubmit } = useForm<IRegisterContactForm>({
+    resolver: zodResolver(RegisterContactForm),
   })
   return (
     <ModalContent mx="16px">
