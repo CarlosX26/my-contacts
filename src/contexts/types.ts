@@ -30,7 +30,10 @@ export interface IAuthContext {
 
 export interface IContactContext {
   contacts: IContact[] | undefined
-  newContact(newContact: IRegisterContactForm): Promise<void>
+  newContact(
+    newContact: IRegisterContactForm,
+    onClose: () => void
+  ): Promise<void>
   deleteContact(contactId: string): Promise<void>
   filterContact: string
   setFilterContact: React.Dispatch<React.SetStateAction<string>>
