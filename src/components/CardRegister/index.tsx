@@ -40,7 +40,7 @@ const CardRegister = ({ toggleCard }: ICardResgisterProps) => {
       borderRadius="16px"
       display="flex"
       flexDir="column"
-      gap="16px"
+      gap="8px"
       w={{ base: "100%", md: "50%" }}
       animate={{ opacity: [0, 1] }}
     >
