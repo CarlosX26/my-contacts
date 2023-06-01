@@ -71,7 +71,7 @@ const ModalProfile = () => {
           as={motion.form}
           display="flex"
           flexDir="column"
-          gap="16px"
+          gap="8px"
         >
           <Select
             placeholder="Deseja atualizar alguma informação?"
