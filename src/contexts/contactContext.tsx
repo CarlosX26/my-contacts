@@ -36,7 +36,8 @@ const ContactContextProvider = ({ children }: IContextProviderProps) => {
   }
 
   const newContact = async (
-    newContact: IRegisterContactForm
+    newContact: IRegisterContactForm,
+    onClose: () => void
   ): Promise<void> => {
     try {
       const token = localStorage.getItem("@myContact:token")
@@ -44,6 +45,7 @@ const ContactContextProvider = ({ children }: IContextProviderProps) => {
         headers: { Authorization: `Bearer ${token}` },
       })
       setContacts([...contacts!, data])
+      onClose()
     } catch (error) {
       console.log(error)
     }
