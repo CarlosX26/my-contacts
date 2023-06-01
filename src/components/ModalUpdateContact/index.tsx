@@ -7,6 +7,7 @@ import {
   ModalCloseButton,
   ModalContent,
   ModalHeader,
+  Text,
 } from "@chakra-ui/react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { motion } from "framer-motion"
@@ -18,8 +19,13 @@ import { UpdateContactForm } from "../../validations/contact"
 const ModalUpdateContact = () => {
   const { contact, updateContact } = useContactContext()
 
-  const { register, handleSubmit } = useForm<IUpdateContactForm>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IUpdateContactForm>({
     resolver: zodResolver(UpdateContactForm),
+    defaultValues: { ...contact },
   })
 
   return (
@@ -32,26 +38,38 @@ const ModalUpdateContact = () => {
           as={motion.form}
           display="flex"
           flexDir="column"
-          gap="16px"
+          gap="8px"
         >
           <FormLabel>Nome</FormLabel>
           <Input
             type="text"
             placeholder="Digite o nome do contato."
-            {...register("fullName", { value: contact?.fullName })}
+            {...register("fullName")}
           />
+          <Text fontSize="x-small" color="red.400">
+            {errors.fullName?.message as string}
+          </Text>
+
           <FormLabel>Email</FormLabel>
           <Input
             type="text"
             placeholder="Digite o email do contato."
-            {...register("email", { value: contact?.email })}
+            {...register("email")}
           />
+          <Text fontSize="x-small" color="red.400">
+            {errors.email?.message as string}
+          </Text>
+
           <FormLabel>Telefone</FormLabel>
           <Input
             type="text"
             placeholder="Digite o telefone do contato."
-            {...register("phoneNumber", { value: contact?.phoneNumber })}
+            {...register("phoneNumber")}
           />
+          <Text fontSize="x-small" color="red.400">
+            {errors.phoneNumber?.message as string}
+          </Text>
+
           <Button type="submit">Atualizar informações</Button>
         </FormControl>
       </ModalBody>
