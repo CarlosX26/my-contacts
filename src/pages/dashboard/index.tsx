@@ -5,10 +5,7 @@ import Header from "../../components/Header"
 import ModalNewContact from "../../components/ModalNewContact"
 import ModalProfile from "../../components/ModalProfile"
 import ModalUpdateContact from "../../components/ModalUpdateContact"
-import {
-  ContactContextProvider,
-  useContactContext,
-} from "../../contexts/contactContext"
+import { ContactContextProvider } from "../../contexts/contactContext"
 
 const Dashboard = () => {
   const [modal, setModal] = useState("")
@@ -26,8 +23,10 @@ const Dashboard = () => {
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           {modal === "profile" && <ModalProfile />}
-          {modal === "newContact" && <ModalNewContact />}
-          {modal === "updateContact" && <ModalUpdateContact />}
+          {modal === "newContact" && <ModalNewContact onClose={onClose} />}
+          {modal === "updateContact" && (
+            <ModalUpdateContact onClose={onClose} />
+          )}
         </Modal>
       </ContactContextProvider>
     </>

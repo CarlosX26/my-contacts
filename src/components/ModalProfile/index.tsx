@@ -71,7 +71,7 @@ const ModalProfile = () => {
           as={motion.form}
           display="flex"
           flexDir="column"
-          gap="16px"
+          gap="8px"
         >
           <Select
             placeholder="Deseja atualizar alguma informação?"
@@ -89,18 +89,7 @@ const ModalProfile = () => {
                 placeholder={getPlaceHolder(field)}
                 {...register(`${field}`)}
               />
-              <Button
-                type="submit"
-                bg="cyan.600"
-                borderRadius="8px"
-                fontWeight="bold"
-                color="gray.100"
-                p="16px"
-                width="100%"
-                _hover={{ bg: "cyan.700" }}
-              >
-                Atualizar Informações
-              </Button>
+              <Button type="submit">Atualizar Informações</Button>
             </>
           )}
         </FormControl>
