@@ -24,7 +24,9 @@ const Dashboard = () => {
           <ModalOverlay />
           {modal === "profile" && <ModalProfile />}
           {modal === "newContact" && <ModalNewContact onClose={onClose} />}
-          {modal === "updateContact" && <ModalUpdateContact />}
+          {modal === "updateContact" && (
+            <ModalUpdateContact onClose={onClose} />
+          )}
         </Modal>
       </ContactContextProvider>
     </>
