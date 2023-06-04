@@ -5,7 +5,6 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
-  useDisclosure,
 } from "@chakra-ui/react"
 import { useRef } from "react"
 import { useContactContext } from "../../contexts/contactContext"
@@ -26,7 +25,7 @@ const AlertDialogContact = ({ isOpen, onClose }: IAlertDialogContactProps) => {
       onClose={onClose}
     >
       <AlertDialogOverlay>
-        <AlertDialogContent>
+        <AlertDialogContent mx="16px">
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
             Deseja deletar este contato?
           </AlertDialogHeader>
@@ -36,9 +35,9 @@ const AlertDialogContact = ({ isOpen, onClose }: IAlertDialogContactProps) => {
               Cancelar
             </Button>
             <Button
-              colorScheme="red"
               onClick={() => deleteContact(contact!.id)}
               ml={3}
+              variant="alert"
             >
               Confirmar
             </Button>
