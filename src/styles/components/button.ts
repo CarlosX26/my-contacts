@@ -10,6 +10,7 @@ const Button = defineStyleConfig({
       p: "1",
       w: "100%",
       _hover: { bg: "cyan.700" },
+      _active: { bg: "cyan.700" },
     },
     outline: {
       borderRadius: "lg",
@@ -20,6 +21,12 @@ const Button = defineStyleConfig({
       border: "2px solid",
       borderColor: "cyan.600",
       _hover: { bg: "gray.200" },
+    },
+    alert: {
+      w: "100%",
+      bg: "red.400",
+      color: "gray.100",
+      _hover: { bg: "red.500" },
     },
   },
   defaultProps: {
