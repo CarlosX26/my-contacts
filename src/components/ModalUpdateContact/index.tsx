@@ -16,7 +16,11 @@ import { useContactContext } from "../../contexts/contactContext"
 import { IUpdateContactForm } from "../../validations/types"
 import { UpdateContactForm } from "../../validations/contact"
 
-const ModalUpdateContact = () => {
+interface IModalUpdateContacProps {
+  onClose(): void
+}
+
+const ModalUpdateContact = ({ onClose }: IModalUpdateContacProps) => {
   const { contact, updateContact } = useContactContext()
 
   const {
@@ -28,13 +32,17 @@ const ModalUpdateContact = () => {
     defaultValues: { ...contact },
   })
 
+  const submit = (data: IUpdateContactForm) => {
+    updateContact(data, onClose)
+  }
+
   return (
     <ModalContent mx="16px">
       <ModalHeader>Atualizar Contato</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
         <FormControl
-          onSubmit={handleSubmit(updateContact)}
+          onSubmit={handleSubmit(submit)}
           as={motion.form}
           display="flex"
           flexDir="column"
