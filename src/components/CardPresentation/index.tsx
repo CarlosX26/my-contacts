@@ -23,28 +23,8 @@ const CardPresentation = ({ toggleCard }: ICardPresentationProps) => {
       <Text fontStyle="italic" fontSize={{ base: "sm", md: "sm" }}>
         Gerencie seus contatos de um jeito inovador.
       </Text>
-      <Button
-        bg="cyan.600"
-        borderRadius="8px"
-        fontWeight="bold"
-        color="gray.100"
-        p="16px"
-        width="100%"
-        _hover={{ bg: "cyan.700" }}
-        onClick={() => toggleCard("login")}
-      >
-        Login
-      </Button>
-      <Button
-        borderRadius="8px"
-        fontWeight="bold"
-        p="16px"
-        width="100%"
-        outline="2px solid"
-        outlineColor="cyan.600"
-        color="cyan.600"
-        onClick={() => toggleCard("register")}
-      >
+      <Button onClick={() => toggleCard("login")}>Login</Button>
+      <Button variant="outline" onClick={() => toggleCard("register")}>
         Inscreva-se
       </Button>
     </Flex>

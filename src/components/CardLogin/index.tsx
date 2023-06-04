@@ -58,18 +58,7 @@ const CardLogin = ({ toggleCard }: ICardLoginProps) => {
           cadastre-se
         </Link>
       </Text>
-      <Button
-        bg="cyan.600"
-        borderRadius="8px"
-        fontWeight="bold"
-        color="gray.100"
-        p="16px"
-        width="100%"
-        _hover={{ bg: "cyan.700" }}
-        type="submit"
-      >
-        Login
-      </Button>
+      <Button type="submit">Login</Button>
     </FormControl>
   )
 }

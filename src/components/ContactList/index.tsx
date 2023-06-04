@@ -55,6 +55,7 @@ const ContactList = ({ openModal, toggleModal }: IContactListProps) => {
         )}
       </UnorderedList>
       <Button
+        w="40px"
         pos="absolute"
         right="16px"
         bottom="16px"

@@ -40,7 +40,7 @@ const CardRegister = ({ toggleCard }: ICardResgisterProps) => {
       borderRadius="16px"
       display="flex"
       flexDir="column"
-      gap="16px"
+      gap="8px"
       w={{ base: "100%", md: "50%" }}
       animate={{ opacity: [0, 1] }}
     >
@@ -90,18 +90,7 @@ const CardRegister = ({ toggleCard }: ICardResgisterProps) => {
       <Text fontSize="x-small" color="red.400">
         {errors.confirmPassword?.message as string}
       </Text>
-      <Button
-        type="submit"
-        bg="cyan.600"
-        borderRadius="8px"
-        fontWeight="bold"
-        color="gray.100"
-        p="16px"
-        width="100%"
-        _hover={{ bg: "cyan.700" }}
-      >
-        Cadastrar-se
-      </Button>
+      <Button type="submit">Cadastrar-se</Button>
       <Text>
         Já possui cadastro?{" "}
         <Link color="cyan.600" onClick={() => toggleCard("login")}>
