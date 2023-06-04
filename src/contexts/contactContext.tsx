@@ -52,7 +52,8 @@ const ContactContextProvider = ({ children }: IContextProviderProps) => {
   }
 
   const updateContact = async (
-    contactData: IUpdateContactForm
+    contactData: IUpdateContactForm,
+    onClose: () => void
   ): Promise<void> => {
     try {
       const token = localStorage.getItem("@myContact:token")
@@ -64,6 +65,7 @@ const ContactContextProvider = ({ children }: IContextProviderProps) => {
         }
       )
       setContacts(contacts?.map((e) => (e.id === data.id ? data : e)))
+      onClose()
     } catch (error) {
       console.log(error)
     }
