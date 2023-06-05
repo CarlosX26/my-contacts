@@ -1,11 +1,10 @@
 import { Flex, Heading, Text, Button, Link } from "@chakra-ui/react"
 import { motion } from "framer-motion"
+import { useAuthContext } from "../../contexts/authContext"
 
-interface ICardPresentationProps {
-  toggleCard(card: string): void
-}
+const CardPresentation = () => {
+  const { toggleCard } = useAuthContext()
 
-const CardPresentation = ({ toggleCard }: ICardPresentationProps) => {
   return (
     <Flex
       w={{ base: "100%", md: "320px" }}

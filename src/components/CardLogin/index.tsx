@@ -14,12 +14,8 @@ import { useAuthContext } from "../../contexts/authContext"
 import { LoginForm } from "../../validations/auth"
 import { ILoginForm } from "../../validations/types"
 
-interface ICardLoginProps {
-  toggleCard(card: string): void
-}
-
-const CardLogin = ({ toggleCard }: ICardLoginProps) => {
-  const { login } = useAuthContext()
+const CardLogin = () => {
+  const { login, toggleCard } = useAuthContext()
 
   const { register, handleSubmit } = useForm<ILoginForm>({
     resolver: zodResolver(LoginForm),

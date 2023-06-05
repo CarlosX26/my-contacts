@@ -1,19 +1,19 @@
 import { Flex, Image } from "@chakra-ui/react"
+import { useAuthContext } from "../../contexts/authContext"
 import illustration from "../../assets/illustration.png"
 import CardLogin from "../../components/CardLogin"
 import CardPresentation from "../../components/CardPresentation"
 import CardRegister from "../../components/CardRegister"
-import { useAuthContext } from "../../contexts/authContext"
 
 const Home = () => {
-  const { card, toggleCard } = useAuthContext()
+  const { card } = useAuthContext()
 
   const cards: {
     [key: string]: JSX.Element
   } = {
-    presentation: <CardPresentation toggleCard={toggleCard} />,
-    register: <CardRegister toggleCard={toggleCard} />,
-    login: <CardLogin toggleCard={toggleCard} />,
+    presentation: <CardPresentation />,
+    register: <CardRegister />,
+    login: <CardLogin />,
   }
 
   return (

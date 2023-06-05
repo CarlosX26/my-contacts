@@ -15,12 +15,8 @@ import { useAuthContext } from "../../contexts/authContext"
 import { RegisterUserForm } from "../../validations/user"
 import { IRegisterUserForm } from "../../validations/types"
 
-interface ICardResgisterProps {
-  toggleCard(card: string): void
-}
-
-const CardRegister = ({ toggleCard }: ICardResgisterProps) => {
-  const { signUp } = useAuthContext()
+const CardRegister = () => {
+  const { signUp, toggleCard } = useAuthContext()
 
   const {
     register,
